@@ -2,7 +2,7 @@ use MangoJRLibrary
 GO
 
 create table BooksOwned(
-	BookID int identity NOT NULL Primary Key,
+	BookID int identity NOT NULL,
 	Title nvarchar(255) NOT NULL,
 	AuthorID int NOT NULL,
 	PageCnt int,
@@ -15,7 +15,8 @@ create table BooksOwned(
 	Edition int,
 	UPC nvarchar(25),
 	DDC int,
-	OwnedStatus bit
+	OwnedStatus bit, 
+	CONSTRAINT PK_BookID PRIMARY KEY (BookID)
 ) 
 
 create table BooksToBuy(
@@ -29,53 +30,60 @@ create table BooksToBuy(
 )
 
 create table Author(
-	AuthorID int identity NOT NULL Primary Key,
+	AuthorID int identity NOT NULL,
 	AuthorName nvarchar(255) NOT NULL,
-	Website nvarchar(255) null
+	Website nvarchar(255) null,
+	CONSTRAINT PK_AuthorID PRIMARY KEY (AuthorID)
 )
 
 create table Book_Genre(
-	bgID int identity NOT NULL Primary Key,
+	bgID int identity NOT NULL,
 	BookID int NOT NULL,
-	GenreID int NOT NULL
+	GenreID int NOT NULL,
+	CONSTRAINT PK_bgID PRIMARY KEY (bgID)
 )
 
 create table Genre(
-	GenreID int identity NOT NULL Primary Key,
+	GenreID int identity NOT NULL,
 	GenreName nvarchar(255) NOT NULL,
-	GenreDescription nvarchar(max)
+	GenreDescription nvarchar(max),
+	CONSTRAINT PK_GenreID PRIMARY KEY (GenreID)
 )
 
 create table Series(
-	SeriesID int identity NOT NULL Primary Key,
+	SeriesID int identity NOT NULL,
 	SeriesName nvarchar(255) NOT NULL,
-	SeriesTotalNum int
+	SeriesTotalNum int,
+	CONSTRAINT PK_SeriesID PRIMARY KEY (SeriesID)
 ) 
 
 create table Publisher(
-	PublisherID int identity NOT NULL Primary Key,
+	PublisherID int identity NOT NULL,
 	PublisherName nvarchar(255) NOT NULL,
 	PublisherAddress nvarchar(255),
 	PublisherCity nvarchar(255),
 	PublisherState nvarchar(255),
-	PublisherCountry nvarchar(255)
+	PublisherCountry nvarchar(255),
+	CONSTRAINT PK_PublisherID PRIMARY KEY (PublisherID)
 )
 
 create table Person(
-	PersonID int identity NOT NULL Primary Key,
+	PersonID int identity NOT NULL,
 	FirstName nvarchar(255) NOT NULL,
 	LastName nvarchar(255) NOT NULL,
 	DateofBirth date NOT NULL,
 	Age int NOT NULL,
 	Interest1 nvarchar(255),
 	Interest2 nvarchar(255),
-	Interest3 nvarchar(255)
+	Interest3 nvarchar(255),
+	CONSTRAINT PK_PersonID PRIMARY KEY (PersonID)
 )
 
 create table PhysicalLocation(
 	BookID int,
 	CaseLocation int,
-	ShelfLocation int
+	ShelfLocation int,
+	CONSTRAINT PK_PhysicalLocation PRIMARY KEY (CaseLocation, ShelfLocation)
 )
 
 create table PurchaseHistory(
@@ -84,7 +92,8 @@ create table PurchaseHistory(
 	BookID int NOT NULL,
 	PurchaseDate date,
 	PurchaseLocation nvarchar(255),
-	PurchasePrice money
+	PurchasePrice money,
+	CONSTRAINT PK_PurchaseID PRIMARY KEY (PurchaseID)
 )
 
 create table ReadHistory(
